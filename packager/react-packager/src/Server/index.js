@@ -272,6 +272,9 @@ class Server {
         for (const key in this._bundles) {
           this._bundles[key].then(bundle => {
             const deps = bundleDeps.get(bundle);
+            if(!deps){
+              throw new Error('bundle deps not found')
+            }
             filePaths.forEach(filePath => {
               // $FlowFixMe(>=0.37.0)
               if (deps.files.has(filePath)) {
@@ -568,6 +571,9 @@ class Server {
     if (optionsJson in this._bundles) {
       return this._bundles[optionsJson].then(bundle => {
         const deps = bundleDeps.get(bundle);
+        if(!deps){
+          throw new Error('bundle deps not found')
+        }
         // $FlowFixMe(>=0.37.0)
         const {dependencyPairs, files, idToIndex, outdated} = deps;
         if (outdated.size) {
