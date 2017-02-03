@@ -123,6 +123,9 @@ class ModuleCache {
   getPackageForModule(module: Module): ?Package {
     if (this._packageModuleMap.has(module)) {
       const packagePath = this._packageModuleMap.get(module);
+      if(!packagePath){
+        throw new Error('packge not found');
+      }
       // $FlowFixMe(>=0.37.0)
       if (this._packageCache[packagePath]) {
         return this._packageCache[packagePath];
